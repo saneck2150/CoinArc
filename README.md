@@ -23,7 +23,7 @@ demonstrates a console-based implementation using Boost.Beast for HTTP networkin
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/exchange-data-fetcher.git
+   git clone https://github.com/saneck2150/CoinArc.git
    cd CoinArc
    mkdir build
    cd build
