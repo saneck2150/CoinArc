@@ -1,0 +1,4 @@
+/build/*
+!/build/.gitkeep
+/third_party/*
+!third_party/.gitignore
