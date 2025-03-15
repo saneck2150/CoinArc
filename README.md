@@ -30,6 +30,7 @@ CoinArc serves as a starting point for creating a lightweight application that r
    cmake ..
    cmake --build .
 
+```bash
    ./my_project - for Lunix/MacOS
    my_project.exe - for Windows
 
