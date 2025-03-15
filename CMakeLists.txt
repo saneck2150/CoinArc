@@ -1,9 +1,10 @@
+#Flags
 cmake_minimum_required(VERSION 3.14)
 project(CoinArc VERSION 1.0 LANGUAGES CXX)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+#Import
 include(FetchContent)
 
 FetchContent_Declare(
@@ -20,8 +21,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(cpp_httplib)
 
+#Linking
 add_executable(CoinArc src/main.cpp)
-
 target_link_libraries(CoinArc PRIVATE nlohmann_json::nlohmann_json)
-
 target_include_directories(CoinArc PRIVATE ${cpp_httplib_SOURCE_DIR})
+
+#Test ....

@@ -21,7 +21,6 @@ CoinArc serves as a starting point for creating a lightweight application that r
 - **nlohmann/json** (fetched automatically via CMake's FetchContent)
 
 ## Getting Started
-### Cloning the Repository
 
 ```bash
    git clone https://github.com/saneck2150/CoinArc.git
