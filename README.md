@@ -1,32 +1,36 @@
 # Exchange Data Fetcher
 
-A compact, cross-platform C++ project that retrieves and parses exchange market data via API. The application currently 
-demonstrates a console-based implementation using Boost.Beast for HTTP networking and Boost.JSON for JSON parsing, with plans for future expansion into graphical user interfaces.
+A compact, cross-platform C++ project for fetching and processing API data.
+
+## Overview
+
+CoinArc serves as a starting point for creating a lightweight application that retrieves data from an API, processes the JSON response, and performs basic analysis.
 
 ## Features
 
-- **Cross-Platform Build:** Uses CMake to support Windows, Linux, and macOS. (soon...)
-- **HTTP Networking:** Leverages Boost.Beast to perform robust HTTP/HTTPS requests.(soon...)
-- **JSON Parsing:** Utilizes Boost.JSON for efficient handling of JSON responses.(soon...)
-- **Modular Architecture:** Designed for easy expansion (e.g., adding a GUI or additional API endpoints).(soon...)
-- **Configurable API Integration:** Flexible integration with various exchange APIs for real-time or historical market data.(soon...)
+- **Cross-Platform Build**: Uses CMake to enable building on Windows, Linux, and macOS. (SOON...)
+- **HTTP Client**: Utilizes [cpp-httplib](https://github.com/yhirose/cpp-httplib), a header-only, easy-to-use HTTP library. (SOON...)
+- **JSON Parsing**: Employs [nlohmann/json](https://github.com/nlohmann/json) for intuitive and efficient JSON handling. (SOON...)
+- **Automated Dependency Management**: Integrates FetchContent in CMake to automatically download and configure external libraries. (SOON...)
+- If the project will expand significantly, we will switch to Boost lib.
 
-## Installation
+## Dependencies
 
-### Prerequisites
+- **CMake (>= 3.14)**
+- **cpp-httplib** (fetched automatically via CMake's FetchContent)
+- **nlohmann/json** (fetched automatically via CMake's FetchContent)
 
-- **CMake** (version 3.14 or higher)
-- **Git**
-- **C++ Compiler** (supporting C++20)
+## Getting Started
+### Cloning the Repository
 
-### Steps
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/saneck2150/CoinArc.git
-   cd CoinArc
+```bash
+   git clone https://your-repository-url.git
+   cd your-repository
    mkdir build
    cd build
    cmake ..
    cmake --build .
-   ./CoinArc
+   ----------------
+   ./my_project - for Lunix/MacOS
+   my_project.exe - for Windows
+
