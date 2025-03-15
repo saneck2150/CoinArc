@@ -12,7 +12,7 @@ CoinArc serves as a starting point for creating a lightweight application that r
 - **HTTP Client**: Utilizes [cpp-httplib](https://github.com/yhirose/cpp-httplib), a header-only, easy-to-use HTTP library. (SOON...)
 - **JSON Parsing**: Employs [nlohmann/json](https://github.com/nlohmann/json) for intuitive and efficient JSON handling. (SOON...)
 - **Automated Dependency Management**: Integrates FetchContent in CMake to automatically download and configure external libraries. (SOON...)
-- If the project will expand significantly, we will switch to Boost lib.
+- If the project will expand, we will switch to Boost lib.
 
 ## Dependencies
 
@@ -30,7 +30,7 @@ CoinArc serves as a starting point for creating a lightweight application that r
    cd build
    cmake ..
    cmake --build .
-   ----------------
+   
    ./my_project - for Lunix/MacOS
    my_project.exe - for Windows
 
