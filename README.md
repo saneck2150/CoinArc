@@ -24,13 +24,13 @@ CoinArc serves as a starting point for creating a lightweight application that r
 ### Cloning the Repository
 
 ```bash
-   git clone https://your-repository-url.git
-   cd your-repository
+   git clone https://github.com/saneck2150/CoinArc.git
+   cd CoinArc
    mkdir build
    cd build
    cmake ..
    cmake --build .
-   
+
    ./my_project - for Lunix/MacOS
    my_project.exe - for Windows
 
