@@ -18,15 +18,10 @@ A compact, cross-platform C++ project that retrieves and parses exchange market 
 - **Git**
 - **C++ Compiler** (supporting C++20)
 - **Qt6**:
-```bash Ubuntu/Debian
+Ubuntu/Debian:
+```bash
 sudo apt update
 sudo apt install qt6-base-dev qt6-base-dev-tools
-```
-```bash Arch Linux
-sudo pacman -S qt6-base qt6-network
-```
-```bash Fedora
-sudo dnf install qt6-qtbase-devel qt6-qtnetwork-devel
 ```
 
 ### Step 2 - Build & Run
