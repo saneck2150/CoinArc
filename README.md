@@ -1,37 +1,40 @@
-# Exchange Data Fetcher
+# CoinArc - Exchange Data Fetcher
 
-A compact, cross-platform C++ project for fetching and processing API data.
-
-## Overview
-
-CoinArc serves as a starting point for creating a lightweight application that retrieves data from an API, processes the JSON response, and performs basic analysis.
+A compact, cross-platform C++ project that retrieves and parses exchange market data via API.
 
 ## Features
 
-- **Cross-Platform Build**: Uses CMake to enable building on Windows, Linux, and macOS. (SOON...)
-- **HTTP Client**: Utilizes [cpp-httplib](https://github.com/yhirose/cpp-httplib), a header-only, easy-to-use HTTP library. (SOON...)
-- **JSON Parsing**: Employs [nlohmann/json](https://github.com/nlohmann/json) for intuitive and efficient JSON handling. (SOON...)
-- **Automated Dependency Management**: Integrates FetchContent in CMake to automatically download and configure external libraries. (SOON...)
-- If the project will expand, we will switch to Boost lib.
+- **Cross-Platform Build:** Uses CMake + Qt to support Windows, Linux, and macOS. (soon...)
+- **HTTP Networking:** Perform robust HTTP/HTTPS requests.(soon...)
+- **JSON Parsing:** Handling of JSON responses.(soon...)
+- **Modular Architecture:** Designed for easy expansion (e.g., adding a GUI or additional API endpoints).(soon...)
+- **Configurable API Integration:** Flexible integration with various exchange APIs for real-time or historical market data.(soon...)
 
-## Dependencies
+## Installation
 
-- **CMake (>= 3.14)**
-- **cpp-httplib** (fetched automatically via CMake's FetchContent)
-- **nlohmann/json** (fetched automatically via CMake's FetchContent)
+### Step 1 - Preinstalation
 
-## Getting Started
-
-```bash
-   git clone https://github.com/saneck2150/CoinArc.git
-   cd CoinArc
-   mkdir build
-   cd build
-   cmake ..
-   cmake --build .
+- **CMake** (version 3.14 or higher)
+- **Git**
+- **C++ Compiler** (supporting C++20)
+- **Qt6**:
+```bash Ubuntu/Debian
+sudo apt update
+sudo apt install qt6-base-dev qt6-base-dev-tools
+```
+```bash Arch Linux
+sudo pacman -S qt6-base qt6-network
+```
+```bash Fedora
+sudo dnf install qt6-qtbase-devel qt6-qtnetwork-devel
 ```
 
-```bash 
-   ./my_project - for Lunix/MacOS
-   y_project.exe - for Windows
+### Step 2 - Build & Run
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+./src/CoinArc
 ```
