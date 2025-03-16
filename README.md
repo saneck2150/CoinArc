@@ -18,6 +18,7 @@ A compact, cross-platform C++ project that retrieves and parses exchange market 
 - **Git**
 - **C++ Compiler** (supporting C++20)
 - **Qt6**:
+
 Ubuntu/Debian:
 ```bash
 sudo apt update

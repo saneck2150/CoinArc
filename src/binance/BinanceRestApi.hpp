@@ -26,4 +26,5 @@ private:
     QNetworkAccessManager m_networkManager;
 };
 
+
 #endif // BINANCE_REST_API_H
