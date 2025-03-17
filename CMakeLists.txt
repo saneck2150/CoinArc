@@ -9,7 +9,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 # Qt import
-find_package(Qt6 6.2 COMPONENTS Core Network REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Core Network WebSockets REQUIRED)
 
 # Subdirectories
 add_subdirectory(src)

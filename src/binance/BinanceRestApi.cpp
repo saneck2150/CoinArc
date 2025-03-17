@@ -45,3 +45,4 @@ void BinanceRestApi::onPriceReplyFinished(QNetworkReply* reply)
 
     emit currentPriceReceived(symbol, price);
 }
+

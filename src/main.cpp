@@ -1,17 +1,21 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
+#include <QTimer>
 #include <QDebug>
-#include "binance/BinanceRestApi.hpp"
+
+#include "binance/BinanceWebSocketApi.hpp"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
+    app.setApplicationName("MyCryptoTracker-WS");
+    app.setApplicationVersion("1.0");
 
     QCommandLineParser parser;
-    parser.setApplicationDescription("CoinArc (Console Version)");
+    parser.setApplicationDescription("Binance WebSocket Test");
     parser.addHelpOption();
+    parser.addVersionOption();
     parser.addPositionalArgument("symbol", "Crypto pair symbol, e.g. BTCUSDT");
-
     parser.process(app);
 
     QString symbol = "BTCUSDT";
@@ -19,16 +23,13 @@ int main(int argc, char *argv[])
         symbol = parser.positionalArguments().first().toUpper();
     }
 
-    BinanceRestApi binanceRest;
-
-    QObject::connect(&binanceRest, &BinanceRestApi::currentPriceReceived,
-                     [&](const QString &sym, double price) {
-        qInfo() << "Current price for" << sym << "is" << price;
-
-        QCoreApplication::quit();
+    BinanceWebSocketApi wsApi;
+    QObject::connect(&wsApi, &BinanceWebSocketApi::priceUpdated,
+                     [&](const QString &sym, double price){
+        qInfo() << "Real-time price for" << sym << ":" << price;
     });
 
-    binanceRest.requestCurrentPrice(symbol);
-
+    wsApi.connectToPriceStream(symbol);
+    QTimer::singleShot(100000, &app, &QCoreApplication::quit);
     return app.exec();
 }
