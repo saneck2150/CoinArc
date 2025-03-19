@@ -41,11 +41,17 @@ REST API endpoint __/api/v3/klines__ from binance has this kind of structure:
 
 [
   1499040000000,      // Open time
+
   "0.01634790",       // Open
+
   "0.80000000",       // High
+
   "0.01575800",       // Low
+
   "0.01577100",       // Close
+
   "148976.11427815",  // Volume
+
   1499644799999,      // Close time
-  ... (другие поля)
+  ... (other)
 ]
