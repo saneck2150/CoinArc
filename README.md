@@ -39,7 +39,9 @@ cmake --build .
 
 REST API endpoint __/api/v3/klines__ from binance has this kind of structure:
 
+```cpp
 [
+
   1499040000000,      // Open time
 
   "0.01634790",       // Open
@@ -54,4 +56,6 @@ REST API endpoint __/api/v3/klines__ from binance has this kind of structure:
 
   1499644799999,      // Close time
   ... (other)
+
 ]
+```
