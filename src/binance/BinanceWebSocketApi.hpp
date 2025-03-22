@@ -1,30 +1,26 @@
-#ifndef BINANCE_WEBSOCKET_API_H
-#define BINANCE_WEBSOCKET_API_H
+#pragma once
 
 #include <QObject>
 #include <QWebSocket>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonValue>
+#include <QAbstractSocket> 
 
 class BinanceWebSocketApi : public QObject
 {
     Q_OBJECT
 public:
-    explicit BinanceWebSocketApi(QObject* parent = nullptr);
+    explicit BinanceWebSocketApi(QObject *parent = nullptr);
     void connectToPriceStream(const QString &symbol);
 
 signals:
     void priceUpdated(const QString &symbol, double price);
+    void socketError(const QString &errorMessage);
 
 private slots:
     void onConnected();
     void onTextMessageReceived(const QString &message);
-    void onErrorOccurred(QAbstractSocket::SocketError error);
+    void onError(QAbstractSocket::SocketError error);
 
 private:
     QWebSocket m_webSocket;
-    QString m_symbol;
+    QString m_currentSymbol; 
 };
-
-#endif // BINANCE_WEBSOCKET_API_H
