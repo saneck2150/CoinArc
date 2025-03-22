@@ -1,3 +1,4 @@
+# Flags
 cmake_minimum_required(VERSION 3.15)
 project(CoinArc LANGUAGES CXX)
 
@@ -8,6 +9,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
+# Pkg Find
 find_package(Qt6 6.2 COMPONENTS 
     Core 
     Network 
@@ -17,4 +19,7 @@ find_package(Qt6 6.2 COMPONENTS
     REQUIRED
 )
 
+# Subdirectories
 add_subdirectory(src)
+
+# Tests...

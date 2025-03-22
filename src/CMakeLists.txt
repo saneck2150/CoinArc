@@ -1,3 +1,4 @@
+#REST API
 add_library(binance_rest
     ${CMAKE_CURRENT_SOURCE_DIR}/binance/BinanceRestApi.cpp
 )
@@ -9,6 +10,7 @@ target_link_libraries(binance_rest PUBLIC
     Qt6::Network
 )
 
+#Websocket API
 add_library(binance_ws
     ${CMAKE_CURRENT_SOURCE_DIR}/binance/BinanceWebSocketApi.cpp
 )
@@ -21,6 +23,7 @@ target_link_libraries(binance_ws PUBLIC
     Qt6::WebSockets
 )
 
+#CoinArc
 add_executable(CoinArc
     main.cpp
     binance/BinanceRestApi.cpp
