@@ -23,8 +23,8 @@ target_link_libraries(binance_ws PUBLIC
 
 add_executable(CoinArc
     main.cpp
-    MainWindow.cpp
-    MainWindow.hpp
+    binance/BinanceRestApi.cpp
+    binance/BinanceWebSocketApi.cpp
 )
 
 target_link_libraries(CoinArc PRIVATE

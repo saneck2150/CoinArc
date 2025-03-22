@@ -1,48 +1,84 @@
 #include "BinanceRestApi.hpp"
 #include <QUrl>
 #include <QUrlQuery>
+#include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonValue>
 #include <QDebug>
 
-BinanceRestApi::BinanceRestApi(QObject *parent)
+BinanceOhlcRestApi::BinanceOhlcRestApi(QObject *parent)
     : QObject(parent)
 {
     connect(&m_networkManager, &QNetworkAccessManager::finished,
-            this, &BinanceRestApi::onPriceReplyFinished);
+            this, &BinanceOhlcRestApi::onReplyFinished);
 }
 
-void BinanceRestApi::requestCurrentPrice(const QString &symbol)
+void BinanceOhlcRestApi::requestLast10Ohlc(const QString &symbol, const QString &interval)
 {
-    QUrl url("https://api.binance.com/api/v3/ticker/price");
-
+    // Пример запроса: GET /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=10
+    QUrl url("https://api.binance.com/api/v3/klines");
     QUrlQuery query;
-    query.addQueryItem("symbol", symbol);
+    query.addQueryItem("symbol",   symbol);
+    query.addQueryItem("interval", interval);
+    query.addQueryItem("limit",    QString::number(10));
     url.setQuery(query);
 
     QNetworkRequest request(url);
     m_networkManager.get(request);
 }
 
-void BinanceRestApi::onPriceReplyFinished(QNetworkReply* reply)
+void BinanceOhlcRestApi::onReplyFinished(QNetworkReply *reply)
 {
     if (reply->error() != QNetworkReply::NoError) {
-        qWarning() << "Price reqest error: " << reply->errorString();
+        const QString err = QString("OHLC request error: %1").arg(reply->errorString());
+        qWarning() << err;
+        emit requestError(err);
         reply->deleteLater();
         return;
     }
 
-    QByteArray responseData = reply->readAll();
+    // Читаем полученный JSON (ожидаем массив)
+    QByteArray data = reply->readAll();
     reply->deleteLater();
 
-    QJsonDocument doc = QJsonDocument::fromJson(responseData);
-    if (!doc.isObject()) {
-        qWarning() << "Wrong JSON format: " << responseData;
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (!doc.isArray()) {
+        const QString err = QString("Wrong OHLC JSON format: %1").arg(QString::fromUtf8(data));
+        qWarning() << err;
+        emit requestError(err);
         return;
     }
 
-    QJsonObject obj = doc.object();
-    QString symbol = obj.value("symbol").toString();
-    double price   = obj.value("price").toString().toDouble();
+    QJsonArray arr = doc.array();
+    QList<OhlcRecord> list;
+    list.reserve(arr.size());
 
-    emit currentPriceReceived(symbol, price);
+    // Каждая свеча – это массив вида:
+    // [
+    //   1499040000000,      // Open time
+    //   "0.01634790",       // Open
+    //   "0.80000000",       // High
+    //   "0.01575800",       // Low
+    //   "0.01577100",       // Close
+    //   "148976.11427815",  // Volume
+    //   1499644799999,      // Close time
+    //   ... (другие поля)
+    // ]
+    for (const QJsonValue &val : arr) {
+        if (!val.isArray()) continue;
+        QJsonArray candle = val.toArray();
+        if (candle.size() < 6) continue;
+
+        OhlcRecord rec;
+        rec.openTime = static_cast<qint64>(candle.at(0).toDouble());
+        rec.open     = candle.at(1).toString().toDouble();
+        rec.high     = candle.at(2).toString().toDouble();
+        rec.low      = candle.at(3).toString().toDouble();
+        rec.close    = candle.at(4).toString().toDouble();
+        rec.volume   = candle.at(5).toString().toDouble();
+        list.append(rec);
+    }
+
+    emit ohlcReceived(list);
 }
-

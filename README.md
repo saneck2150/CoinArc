@@ -41,21 +41,27 @@ REST API endpoint __/api/v3/klines__ from binance has this kind of structure:
 
 ```cpp
 [
-
-  1499040000000,      // Open time
-
-  "0.01634790",       // Open
-
-  "0.80000000",       // High
-
-  "0.01575800",       // Low
-
-  "0.01577100",       // Close
-
-  "148976.11427815",  // Volume
-
-  1499644799999,      // Close time
-  ... (other)
+{
+  "e": "kline",
+  "E": 123456789,      // Event time
+  "s": "BTCUSDT",      // Symbol
+  "k": {
+    "t": 123400000,    // Kline start time
+    "T": 123460000,    // Kline close time
+    "s": "BTCUSDT",    // Symbol
+    "i": "1m",         // Interval
+    "f": 100,          // First trade ID
+    "L": 200,          // Last trade ID
+    "o": "0.0010",     // Open
+    "c": "0.0020",     // Close
+    "h": "0.0025",     // High
+    "l": "0.0015",     // Low
+    "v": "1000",       // Base asset volume
+    "n": 100,          // Number of trades
+    "x": false,        // Is this kline closed?
+    ...
+  }
+}
 
 ]
 ```

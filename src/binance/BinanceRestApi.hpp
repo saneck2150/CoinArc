@@ -1,30 +1,40 @@
-#ifndef BINANCE_REST_API_H
-#define BINANCE_REST_API_H
+#pragma once
 
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonValue>
+#include <QList>
 
-class BinanceRestApi : public QObject
+// Структура для хранения одной записи OHLC
+struct OhlcRecord {
+    qint64 openTime;   // Метка времени открытия свечи
+    double open;
+    double high;
+    double low;
+    double close;
+    double volume;
+};
+
+class BinanceOhlcRestApi : public QObject
 {
     Q_OBJECT
 public:
-    explicit BinanceRestApi(QObject* parent = nullptr);
-
-    void requestCurrentPrice(const QString& symbol);
+    explicit BinanceOhlcRestApi(QObject *parent = nullptr);
+    
+    // Запросить последние 10 OHLC. Параметры:
+    // symbol:  тикер (например, BTCUSDT)
+    // interval: интервал (например, 1m, 15m, 1h, 1d и т.д.)
+    void requestLast10Ohlc(const QString &symbol, const QString &interval = "1m");
 
 signals:
-    void currentPriceReceived(const QString& symbol, double price);
+    // Возвращаем список (QList) OhlcRecord по завершении
+    void ohlcReceived(const QList<OhlcRecord> &records);
+    // В случае ошибки отправим сигнал
+    void requestError(const QString &errorMsg);
 
 private slots:
-    void onPriceReplyFinished(QNetworkReply* reply);
+    void onReplyFinished(QNetworkReply *reply);
 
 private:
     QNetworkAccessManager m_networkManager;
 };
-
-
-#endif // BINANCE_REST_API_H
