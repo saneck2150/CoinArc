@@ -13,7 +13,7 @@ struct KlineData {
     double high;
     double low;
     double volume;
-    bool isKlineClosed;  // x = true/false
+    bool isKlineClosed; 
 };
 
 class BinanceKlineWebSocketApi : public QObject
@@ -21,9 +21,6 @@ class BinanceKlineWebSocketApi : public QObject
     Q_OBJECT
 public:
     explicit BinanceKlineWebSocketApi(QObject *parent = nullptr);
-    
-    // Подключаемся к kline-стриму по указанному символу и интервалу.
-    // Например:  symbol = "BTCUSDT", interval="1m"
     void connectToKlineStream(const QString &symbol, const QString &interval);
 
 signals:

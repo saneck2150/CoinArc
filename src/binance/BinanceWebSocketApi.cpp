@@ -21,7 +21,6 @@ void BinanceKlineWebSocketApi::connectToKlineStream(const QString &symbol, const
     m_symbol   = symbol;
     m_interval = interval;
 
-    // Пример: wss://stream.binance.com:9443/ws/btcusdt@kline_1m
     QString wsUrl = QString("wss://stream.binance.com:9443/ws/%1@kline_%2")
                         .arg(symbol.toLower())
                         .arg(interval);
@@ -31,25 +30,19 @@ void BinanceKlineWebSocketApi::connectToKlineStream(const QString &symbol, const
 void BinanceKlineWebSocketApi::onConnected()
 {
     qDebug() << "[Kline WS] Connected to" << m_symbol << "interval:" << m_interval;
-    // Подписываемся на сообщения
     connect(&m_webSocket, &QWebSocket::textMessageReceived,
             this, &BinanceKlineWebSocketApi::onTextMessageReceived);
 }
 
 void BinanceKlineWebSocketApi::onTextMessageReceived(const QString &message)
 {
-    // Парсим JSON
     QJsonDocument doc = QJsonDocument::fromJson(message.toUtf8());
     if (!doc.isObject()) return;
 
     QJsonObject obj = doc.object();
-    // eventType = obj.value("e") => "kline"
-    // symbol    = obj.value("s") => "BTCUSDT", но нам важнее поле "k"
     if (!obj.contains("k")) return;
 
     QJsonObject kObj = obj.value("k").toObject();
-
-    // Извлекаем нужные поля
     KlineData kdata;
     kdata.openTime      = static_cast<qint64>(kObj.value("t").toDouble());
     kdata.closeTime     = static_cast<qint64>(kObj.value("T").toDouble());

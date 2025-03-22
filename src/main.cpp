@@ -33,8 +33,6 @@ int main(int argc, char *argv[])
 
     const QString symbol   = parser.value(symbolOption).toUpper();
     const QString interval = parser.value(intervalOption);
-
-    // 1) Создаём REST API объект и запрашиваем последние 10 OHLC
     BinanceOhlcRestApi restApi;
     QObject::connect(&restApi, &BinanceOhlcRestApi::ohlcReceived,
                      [&](const QList<OhlcRecord> &records){
@@ -56,12 +54,9 @@ int main(int argc, char *argv[])
     });
 
     restApi.requestLast10Ohlc(symbol, interval);
-
-    // 2) Создаём WebSocket для Kline-стрима
     BinanceKlineWebSocketApi wsApi;
     QObject::connect(&wsApi, &BinanceKlineWebSocketApi::klineUpdated,
                      [&](const KlineData &kline){
-        // Выводим полученную «живую» свечу (в процессе формирования).
         qInfo() << "[Kline WS]"
                 << kline.symbol << "(" << kline.interval << ")"
                 << "Open=" << kline.open
@@ -76,9 +71,6 @@ int main(int argc, char *argv[])
     });
 
     wsApi.connectToKlineStream(symbol, interval);
-
-    // Для демонстрации ограничим жизнь приложения (например, 3 минуты)
-    // Иначе можно убрать этот таймер, чтобы работало «вечно».
     QTimer::singleShot(3 * 60 * 1000, &app, &QCoreApplication::quit);
 
     return app.exec();

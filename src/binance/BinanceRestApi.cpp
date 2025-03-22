@@ -16,7 +16,6 @@ BinanceOhlcRestApi::BinanceOhlcRestApi(QObject *parent)
 
 void BinanceOhlcRestApi::requestLast10Ohlc(const QString &symbol, const QString &interval)
 {
-    // Пример запроса: GET /api/v3/klines?symbol=BTCUSDT&interval=1m&limit=10
     QUrl url("https://api.binance.com/api/v3/klines");
     QUrlQuery query;
     query.addQueryItem("symbol",   symbol);
@@ -37,8 +36,6 @@ void BinanceOhlcRestApi::onReplyFinished(QNetworkReply *reply)
         reply->deleteLater();
         return;
     }
-
-    // Читаем полученный JSON (ожидаем массив)
     QByteArray data = reply->readAll();
     reply->deleteLater();
 
@@ -53,18 +50,6 @@ void BinanceOhlcRestApi::onReplyFinished(QNetworkReply *reply)
     QJsonArray arr = doc.array();
     QList<OhlcRecord> list;
     list.reserve(arr.size());
-
-    // Каждая свеча – это массив вида:
-    // [
-    //   1499040000000,      // Open time
-    //   "0.01634790",       // Open
-    //   "0.80000000",       // High
-    //   "0.01575800",       // Low
-    //   "0.01577100",       // Close
-    //   "148976.11427815",  // Volume
-    //   1499644799999,      // Close time
-    //   ... (другие поля)
-    // ]
     for (const QJsonValue &val : arr) {
         if (!val.isArray()) continue;
         QJsonArray candle = val.toArray();
