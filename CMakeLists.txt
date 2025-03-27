@@ -19,7 +19,26 @@ find_package(Qt6 6.2 COMPONENTS
     REQUIRED
 )
 
-# Subdirectories
-add_subdirectory(src)
+# CMake Modules
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/BinanceCore.cmake)
+
+#CoinArc
+add_executable(CoinArc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/binance/BinanceRestApi.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/binance/BinanceWebSocketApi.cpp
+)
+
+target_link_libraries(CoinArc PRIVATE
+    Qt6::Core
+    Qt6::Network
+    Qt6::WebSockets
+    Qt6::Widgets
+    Qt6::Charts
+    binance_rest
+    binance_ws
+)
+target_include_directories(CoinArc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 
 # Tests...
