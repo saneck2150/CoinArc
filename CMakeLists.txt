@@ -27,6 +27,7 @@ add_executable(CoinArc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/binance/BinanceRestApi.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/binance/BinanceWebSocketApi.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/binance/BinanceRunner.cpp
 )
 
 target_link_libraries(CoinArc PRIVATE
