@@ -38,12 +38,14 @@ cmake --build .
 ### How to use it Console
 ```bash
 ./CoinArc
+#Help
+-h, --help
 
 #Change ticker symbol("BTCUSDT, ETHUSDT...")
--s or --symbol "ticker symbol" 
+-s, --symbol <ticker symbol> 
 
 #Change Interval ("1m,15m,1h"):
--i or --interval "interval"
+-i, --interval <interval>
 
 #Example:
 ./ConsoleKlineApp -s ETHUSDT -i 15m
