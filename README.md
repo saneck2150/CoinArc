@@ -47,7 +47,7 @@ cmake --build .
 #Change Interval ("1m,15m,1h"):
 -i, --interval <interval>
 
-#Example:
+#Example
 ./ConsoleKlineApp -s ETHUSDT -i 15m
 ```
 
