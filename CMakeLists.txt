@@ -10,13 +10,14 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 # Pkg Find
-find_package(Qt6 6.2 COMPONENTS 
+find_package(Qt6 6.2 REQUIRED COMPONENTS 
     Core 
     Network 
     WebSockets 
     Widgets
     Charts
     REQUIRED
+    Gui
 )
 
 # CMake Modules
